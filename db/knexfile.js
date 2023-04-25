@@ -1,4 +1,6 @@
-// Update with your config settings.
+const { Model } = require('objection');
+const Knex = require('knex');
+
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }

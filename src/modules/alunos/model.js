@@ -1,5 +1,9 @@
-class Person extends Model {
-    static get tableName() {
-      return 'persons';
+const { Model } = require('objection');
+
+class Alunos extends Model {
+    static get alunos() {
+      return 'alunos';
     }
 }
+
+
