@@ -1,22 +1,25 @@
 export function up(knex) {
-    return knex.schema.createTable("alunos", fields => {
+    return knex.schema.createTable("cursos", fields => {
         fields.bigIncrements("id")
             .primary();
-
-        fields.string("nome", 100)
+        
+        fields.string("curso", 100)
             .notNullable();
 
-        fields.string("cpf", 11)
+        fields.string("descricao", 500)
+
+        fields.string("turno", 50)
+            .notNullable();
+        
+        fields.integer("vagas", 100)
             .notNullable();
 
-        fields.string("email", 100)
-            .notNullable();
+        
+        fields.unique(["curso"])
 
-        fields.unique(["email"])
-        fields.unique(["cpf"])
     })
-}
+};
 
 export function down(knex) {
-    return knex.schema.dropTableIfExists("alunos");
-}
+    return knex.schema.dropTableIfExists("cursos");
+};
