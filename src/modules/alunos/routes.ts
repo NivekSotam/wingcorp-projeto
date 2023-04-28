@@ -1,8 +1,8 @@
 import {Router} from 'express';
-import teste from './controller';
+import cadastroAlunos, { validacaoCadastroAlunos } from './controller';
 
 const router = Router();
 
-router.get("/", () => teste );
+router.get("/", validacaoCadastroAlunos,  cadastroAlunos );
 
 export default router;
