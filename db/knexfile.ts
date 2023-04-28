@@ -14,4 +14,4 @@ const knex = {
   },
 };
 
-export default knex;
+export default knex ;

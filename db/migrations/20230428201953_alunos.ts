@@ -1,4 +1,7 @@
-export function up(knex) {
+import { Knex } from "knex";
+
+
+export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable("alunos", fields => {
         fields.bigIncrements("id")
             .primary();
@@ -17,6 +20,7 @@ export function up(knex) {
     })
 }
 
-export function down(knex) {
+
+export async function down(knex: Knex): Promise<void> {
     return knex.schema.dropTableIfExists("alunos");
-}
+} 

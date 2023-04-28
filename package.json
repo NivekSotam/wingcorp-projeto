@@ -2,11 +2,12 @@
   "name": "wingcorp-projeto",
   "version": "1.0.0",
   "description": "",
+
   "scripts": {
     "start": "nodemon ./src/index.ts",
-    "migrate:make": "knex migrate:make --knexfile ./db/knexfile.js",
-    "migrate:latest": "knex migrate:latest --knexfile ./db/knexfile.js",
-    "migrate:rollback": "knex migrate:rollback --knexfile ./db/knexfile.js"
+    "migrate:make": "knex migrate:make --knexfile ./db/knexfile.ts",
+    "migrate:latest": "knex migrate:latest --knexfile ./db/knexfile.ts",
+    "migrate:rollback": "knex migrate:rollback --knexfile ./db/knexfile.ts"
   },
   "keywords": [],
   "author": "",
