@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction, } from "express";
+import Bookshelf from "bookshelf"; 
 import Joi from "joi";
 import Aluno from "./module";
 
