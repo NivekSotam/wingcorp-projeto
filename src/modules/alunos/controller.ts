@@ -21,6 +21,7 @@ export default async function cadastroAlunos(request: Request, response: Respons
     const AlunoExistente = await Aluno.query().findOne({
         email: "email"
     })
+    console.log(AlunoExistente);
 
     if (AlunoExistente) {
         response.status(400).json({
