@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction, } from "express";
-import Bookshelf from "bookshelf"; 
 import Joi from "joi";
 import Aluno from "./module";
 
@@ -18,22 +17,26 @@ export function validacaoCadastroAlunos(request: Request, response: Response, ne
 }
 
 export default async function cadastroAlunos(request: Request, response: Response): Promise<void> {
-    const AlunoExistente = await Aluno
-        .where('email', '=', request.body.email)
-        .fetch();
+    // verificar email existente
+    const AlunoExistente = await Aluno.query().findOne({
+        email: "email"
+    })
+
     if (AlunoExistente) {
         response.status(400).json({
             mensagem: 'O endereço de e-mail já está cadastrado'
         });
         return;
     };
-
-    const novoAluno = new Aluno(
-        nome: request.body.nome ,
-        cpf: request.body.cpf,
-        email: request.body.email,
-    );
-
-    const retorno = await novoAluno.save();
-    request.status(201).json(retorno);
+    try {
+        await Aluno.query().insert({
+            nome: request.body.nome,
+            cpf: request.body.cpf,
+            email: request.body.email,
+        });
+    } catch {
+        response.status(201).json({
+            mensagem: 'Falha o fazer o cafastro'        
+        });
+    }
 };

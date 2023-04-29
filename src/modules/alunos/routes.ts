@@ -3,6 +3,6 @@ import cadastroAlunos, { validacaoCadastroAlunos } from './controller';
 
 const router = Router();
 
-router.get("/", validacaoCadastroAlunos,  cadastroAlunos );
+router.post("/", validacaoCadastroAlunos,  cadastroAlunos );
 
 export default router;
