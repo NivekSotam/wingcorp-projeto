@@ -1,7 +1,10 @@
 import express from "express";
 import router from "./modules/alunos/routes";
+import Model from "./objection"
 
 const app = express();
+
+Model; 
 
 app.use(express.json());
 

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction, } from "express";
 import Joi from "joi";
 import Aluno from "./module";
 
+
 export function validacaoCadastroAlunos(request: Request, response: Response, next: NextFunction) {
     const schema = Joi.object({
         nome: Joi.string().min(1).max(100).required(),
@@ -18,10 +19,10 @@ export function validacaoCadastroAlunos(request: Request, response: Response, ne
 
 export default async function cadastroAlunos(request: Request, response: Response): Promise<void> {
     // verificar email existente
+    const { nome, cpf, email  } = request.body
     const AlunoExistente = await Aluno.query().findOne({
-        email: "email"
+        email: email
     })
-    console.log(AlunoExistente);
 
     if (AlunoExistente) {
         response.status(400).json({
@@ -31,9 +32,9 @@ export default async function cadastroAlunos(request: Request, response: Respons
     };
     try {
         await Aluno.query().insert({
-            nome: request.body.nome,
-            cpf: request.body.cpf,
-            email: request.body.email,
+            nome: nome, 
+            cpf: cpf,
+            email: email
         });
     } catch {
         response.status(201).json({
