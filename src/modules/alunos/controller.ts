@@ -17,7 +17,6 @@ async function cadastroAlunos(request: Request, response: Response, next: NextFu
         };
         
         const aluno = await Aluno.transaction(async transacting => {
-            console.log(body)
             return Aluno.query(transacting)
                 .insertAndFetch(body)
         });

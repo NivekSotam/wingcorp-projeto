@@ -11,7 +11,6 @@ const knex = Knex({
         database: 'cursoalunos'
       },
 });
-  
 
 Model.knex(knex);
 
