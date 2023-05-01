@@ -1,8 +1,9 @@
 import {Router} from 'express';
-import cadastroAlunos, { validacaoCadastroAlunos } from './controller';
+import { validacaoCadastroAlunos } from './validacao';
+import controller from './controller';
 
-const router = Router();
+const routerAluno = Router();
 
-router.post("/", validacaoCadastroAlunos,  cadastroAlunos );
+routerAluno.post("/", validacaoCadastroAlunos, controller.cadastroAlunos);
 
-export default router;
+export default routerAluno;
