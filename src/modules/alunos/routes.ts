@@ -13,6 +13,6 @@ routerAluno.post("/", validacaoCadastroAlunos, controller.cadastroAlunos);
 routerAluno.get("/", controller.listrarAlunos)
 routerAluno.get("/:id", controller.listrarUmAluno )
 
-routerAluno.put("/:id", validacaoAlteracaoAlunos)
+routerAluno.put("/:id", validacaoAlteracaoAlunos, controller.AlterarAluno)
 
 export default routerAluno;

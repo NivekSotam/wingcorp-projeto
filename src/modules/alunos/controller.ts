@@ -1,29 +1,24 @@
 import { Request, Response, NextFunction, } from "express";
 import Aluno from "./module";
+import routerAluno from "./routes";
+import { transaction } from "objection";
 
 async function cadastroAlunos(request: Request, response: Response, next: NextFunction) {
     const { body } = request;
     const { email, cpf } = body;
 
     try {
-        const AlunoEmailExistente = await Aluno.query().findOne({
-            email: email
-        })
-        const AlunoCpfExistente = await Aluno.query().findOne({
+        const AlunoExistente = await Aluno.query().findOne({
+            email: email,
             cpf: cpf
         })
-
-        if (AlunoEmailExistente) {
+    
+        if (AlunoExistente) {
             return response.status(400).json({
-                mensagem: 'O endereço de e-mail já está cadastrado'
+                mensagem: 'O endereço de e-mail e cpf devem ser unicos'
             });
         };
 
-        if (AlunoCpfExistente) {
-            return response.status(400).json({
-                mensagem: 'Este CPF já está cadastrado'
-            });
-        };
 
         const aluno = await Aluno.transaction(async transacting => {
             return Aluno.query(transacting)
@@ -58,7 +53,7 @@ async function listrarUmAluno(request: Request, response: Response, next: NextFu
     try {
         const aluno = await Aluno.query()
             .findById(id)
-        
+
         response.status(200)
             .json(aluno);
 
@@ -69,12 +64,30 @@ async function listrarUmAluno(request: Request, response: Response, next: NextFu
     }
 }
 
+async function AlterarAluno(request: Request, response: Response, next: NextFunction) {
+    const { id } = request.params
+    const { body } = request;
 
+    try {
+        const aluno = await Aluno.transaction(async transacting =>{
+            return Aluno.query(transacting)
+                .updateAndFetchById(id, body)
+        });
+
+        response.status(200)
+        .json(aluno)
+    } catch (error) {
+        next(error);
+        response.status(404)
+            .json({ message: "Falha ao atualizar as informações" });
+    }
+}
 
 
 
 export default {
     cadastroAlunos,
     listrarAlunos,
-    listrarUmAluno
+    listrarUmAluno,
+    AlterarAluno
 }
