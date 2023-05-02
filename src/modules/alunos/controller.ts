@@ -64,7 +64,7 @@ async function listrarUmAluno(request: Request, response: Response, next: NextFu
     }
 }
 
-async function AlterarAluno(request: Request, response: Response, next: NextFunction) {
+async function alterarAluno(request: Request, response: Response, next: NextFunction) {
     const { id } = request.params
     const { body } = request;
 
@@ -83,11 +83,30 @@ async function AlterarAluno(request: Request, response: Response, next: NextFunc
     }
 }
 
+async function deletarAluno(request: Request, response: Response, next: NextFunction) {
+    const { id } = request.params
+
+    try {
+        const aluno = await Aluno.transaction(async transacting =>{
+            return Aluno.query(transacting)
+                .deleteById(id)
+        });
+
+        response.status(200)
+        .json(aluno)
+    } catch (error) {
+        next(error);
+        response.status(404)
+            .json({ message: "Falha deletar" });
+    }
+}
+
 
 
 export default {
     cadastroAlunos,
     listrarAlunos,
     listrarUmAluno,
-    AlterarAluno
+    alterarAluno,
+    deletarAluno
 }

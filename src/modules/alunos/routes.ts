@@ -13,6 +13,8 @@ routerAluno.post("/", validacaoCadastroAlunos, controller.cadastroAlunos);
 routerAluno.get("/", controller.listrarAlunos)
 routerAluno.get("/:id", controller.listrarUmAluno )
 
-routerAluno.put("/:id", validacaoAlteracaoAlunos, controller.AlterarAluno)
+routerAluno.put("/:id", validacaoAlteracaoAlunos, controller.alterarAluno)
+
+routerAluno.delete("/:id", controller.deletarAluno)
 
 export default routerAluno;
