@@ -9,7 +9,10 @@ import {
 const routerAluno = Router();
 
 routerAluno.post("/", validacaoCadastroAlunos, controller.cadastroAlunos);
+
 routerAluno.get("/", controller.ListrarAlunos)
-routerAluno.put("/", validacaoAlteracaoAlunos)
+routerAluno.get("/:id", controller.ListrarUmAluno )
+
+routerAluno.put("/:id", validacaoAlteracaoAlunos)
 
 export default routerAluno;

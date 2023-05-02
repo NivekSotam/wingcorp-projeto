@@ -52,7 +52,27 @@ async function ListrarAlunos(request: Request, response: Response, next: NextFun
     }
 }
 
+async function ListrarUmAluno(request: Request, response: Response, next: NextFunction) {
+    const { id } = request.params
+
+    try {
+        const aluno = await Aluno.query()
+            .findById(id)
+        
+        response.status(200)
+            .json(aluno);
+
+    } catch (error) {
+        next(error);
+        response.status(404)
+            .json({ message: "Aluno não existe" });
+    }
+}
+
+
+
 export default {
     cadastroAlunos,
-    ListrarAlunos
+    ListrarAlunos,
+    ListrarUmAluno
 }
