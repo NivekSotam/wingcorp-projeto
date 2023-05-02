@@ -10,8 +10,8 @@ const routerAluno = Router();
 
 routerAluno.post("/", validacaoCadastroAlunos, controller.cadastroAlunos);
 
-routerAluno.get("/", controller.ListrarAlunos)
-routerAluno.get("/:id", controller.ListrarUmAluno )
+routerAluno.get("/", controller.listrarAlunos)
+routerAluno.get("/:id", controller.listrarUmAluno )
 
 routerAluno.put("/:id", validacaoAlteracaoAlunos)
 

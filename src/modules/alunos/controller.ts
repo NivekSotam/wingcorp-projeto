@@ -39,7 +39,7 @@ async function cadastroAlunos(request: Request, response: Response, next: NextFu
     }
 };
 
-async function ListrarAlunos(request: Request, response: Response, next: NextFunction) {
+async function listrarAlunos(request: Request, response: Response, next: NextFunction) {
     try {
         const aluno = await Aluno.query()
 
@@ -52,7 +52,7 @@ async function ListrarAlunos(request: Request, response: Response, next: NextFun
     }
 }
 
-async function ListrarUmAluno(request: Request, response: Response, next: NextFunction) {
+async function listrarUmAluno(request: Request, response: Response, next: NextFunction) {
     const { id } = request.params
 
     try {
@@ -71,8 +71,10 @@ async function ListrarUmAluno(request: Request, response: Response, next: NextFu
 
 
 
+
+
 export default {
     cadastroAlunos,
-    ListrarAlunos,
-    ListrarUmAluno
+    listrarAlunos,
+    listrarUmAluno
 }
