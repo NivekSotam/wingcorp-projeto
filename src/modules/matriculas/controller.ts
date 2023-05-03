@@ -22,3 +22,7 @@ async function getMatricula(request: Request, response: Response, next: NextFunc
     next(error);
   }
 }
+
+export default {
+  
+}

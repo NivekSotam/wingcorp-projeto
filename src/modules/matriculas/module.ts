@@ -1,7 +1,6 @@
 import { Model } from "objection";
 import Aluno from "../alunos/module";
 import Curso from "../cursos/module";
-
 class Matricula extends Model {
 
     static get tableName() {
@@ -24,7 +23,7 @@ class Matricula extends Model {
                 relation: Matricula.HasOneRelation,
                 modelClass: Curso,
                 join: {
-                    from: "curso._id",
+                    from: "matriculas.curso_id",
                     to: "curso.id"
                 }
             },
