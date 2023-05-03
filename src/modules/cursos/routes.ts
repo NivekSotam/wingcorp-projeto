@@ -6,4 +6,7 @@ const routerCursos = Router();
 
 routerCursos.post("/",validacao.validacaoCadastroCursos, controller.cadastroCursos);
 
+routerCursos.get("/", controller.listrarCursos);
+routerCursos.get("/:id", controller.listrarUmCurso);
+
 export default routerCursos;

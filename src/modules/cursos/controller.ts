@@ -26,12 +26,41 @@ async function cadastroCursos(request: Request, response: Response, next: NextFu
         .json(cursoInsert)
     }
     catch (error) {
-        next(error);
         response.status(400)
             .json({ message: 'Falha ao realizar o cadastro' })
+        next(error);
     }
-}
+};
+
+async function listrarCursos(request: Request, response: Response, next: NextFunction) {
+    try {
+        const CursoListar = await Curso.query()
+
+        response.status(200)
+            .json(CursoListar);
+    } catch (error) {
+        response.status(400)
+            .json({ message: "Falha ao listar os Cursos" });
+        next(error);
+    }
+};
+
+async function listrarUmCurso(request: Request, response: Response, next: NextFunction) {
+    const { id } = request.params
+
+    const ListarUmCurso = await Curso.query()
+        .findById(id)
+
+    if (!ListarUmCurso) {
+        return notFoundError("curso não encontrado", response);
+    }
+
+    response.status(200)
+        .json(ListarUmCurso);
+};
 
 export default {
-    cadastroCursos
+    cadastroCursos,
+    listrarCursos,
+    listrarUmCurso
 }
