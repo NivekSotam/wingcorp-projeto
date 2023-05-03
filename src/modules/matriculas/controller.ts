@@ -12,13 +12,13 @@ async function createMatricula(request: Request, response: Response, next: NextF
 async function getMatricula(request: Request, response: Response, next: NextFunction) {
   try {
     const matriculas = await Matricula.query()
-        .withGraphFetched({ aluno: true });
+        .withGraphFetched({ curso: true, aluno: true });
 
     response.status(200)
         .json(matriculas);
   } catch (error) {
-    next(error);
     response.status(400)
         .json({ message: "Falha ao listar as matrículas" });
+    next(error);
   }
 }

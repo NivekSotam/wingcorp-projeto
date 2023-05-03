@@ -1,5 +1,6 @@
 import { Model } from "objection";
 import Aluno from "../alunos/module";
+import Curso from "../cursos/module";
 
 class Matricula extends Model {
 
@@ -19,6 +20,14 @@ class Matricula extends Model {
 
     static get relationMappings() {
         return {
+            curso: {
+                relation: Matricula.HasOneRelation,
+                modelClass: Curso,
+                join: {
+                    from: "curso._id",
+                    to: "curso.id"
+                }
+            },
             aluno: {
                 relation: Matricula.HasOneRelation,
                 modelClass: Aluno,
@@ -26,8 +35,7 @@ class Matricula extends Model {
                     from: "matriculas.aluno_id",
                     to: "alunos.id"
                 }
-            }
-            
+            }  
         }
     }
 
