@@ -86,9 +86,27 @@ async function alterarCurso(request: Request, response: Response, next: NextFunc
     }
 }
 
+async function deletarCurso(request: Request, response: Response, next: NextFunction) {
+    const { id } = request.params
+
+    const deletarCurso = await Curso.transaction(async transacting => {
+        return Curso.query(transacting)
+            .where('id', '=', id)
+            .delete()
+    });
+
+    if (!deletarCurso) {
+        return notFoundError("Curso não encontrado", response)
+    }
+
+    response.status(204)
+        .send();
+}
+
 export default {
     cadastroCursos,
     listrarCursos,
     listrarUmCurso,
-    alterarCurso
+    alterarCurso,
+    deletarCurso
 }
