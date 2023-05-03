@@ -21,4 +21,6 @@ async function validacaoCadastroCursos(request: Request, response: Response, nex
     next();
 }
 
-export default {}
+export default {
+    validacaoCadastroCursos
+}
