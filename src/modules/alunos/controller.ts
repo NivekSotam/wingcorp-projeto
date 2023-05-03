@@ -2,6 +2,7 @@ import { Request, Response, NextFunction, } from "express";
 import Aluno from "./module";
 import routerAluno from "./routes";
 import { transaction } from "objection";
+import notFoundError from "../../helper/not-found-error";
 
 async function cadastroAlunos(request: Request, response: Response, next: NextFunction) {
     const { body } = request;
@@ -12,7 +13,7 @@ async function cadastroAlunos(request: Request, response: Response, next: NextFu
             email: email,
             cpf: cpf
         })
-    
+
         if (AlunoExistente) {
             return response.status(400).json({
                 mensagem: 'O endereço de e-mail e cpf devem ser unicos'
@@ -41,67 +42,68 @@ async function listrarAlunos(request: Request, response: Response, next: NextFun
         response.status(200)
             .json(aluno);
     } catch (error) {
-        next(error);
         response.status(400)
             .json({ message: "Falha ao listar os Alunos" });
+        next(error);
     }
-}
+};
 
 async function listrarUmAluno(request: Request, response: Response, next: NextFunction) {
     const { id } = request.params
 
-    try {
-        const aluno = await Aluno.query()
-            .findById(id)
+    const aluno = await Aluno.query()
+        .findById(id)
 
-        response.status(200)
-            .json(aluno);
-
-    } catch (error) {
-        next(error);
-        response.status(404)
-            .json({ message: "Aluno não existe" });
+    if (!aluno) {
+        return notFoundError("Aluno não encontrado", response);
     }
-}
+
+    response.status(200)
+        .json(aluno);
+};
 
 async function alterarAluno(request: Request, response: Response, next: NextFunction) {
     const { id } = request.params
     const { body } = request;
 
     try {
-        const aluno = await Aluno.transaction(async transacting =>{
-            return Aluno.query(transacting)
-                .updateAndFetchById(id, body)
+        const aluno = await Aluno.transaction(async transacting => {
+            const alunoExistente = await Aluno.query()
+                .findById(id)
+
+            if (!alunoExistente) {
+                return notFoundError("Aluno não encontrado", response)
+            }
+
+            return alunoExistente.$query(transacting)
+                .updateAndFetch(body)
         });
 
         response.status(200)
-        .json(aluno)
+            .json(aluno)
     } catch (error) {
-        next(error);
         response.status(404)
             .json({ message: "Falha ao atualizar as informações" });
+        next(error);
     }
 }
 
 async function deletarAluno(request: Request, response: Response, next: NextFunction) {
     const { id } = request.params
 
-    try {
-        const aluno = await Aluno.transaction(async transacting =>{
-            return Aluno.query(transacting)
-                .deleteById(id)
-        });
+    const aluno = await Aluno.transaction(async transacting => {
+        return Aluno.query(transacting)
+            .where('id', '=', id)
+            .delete()
+    });
 
-        response.status(200)
-        .json(aluno)
-    } catch (error) {
-        next(error);
-        response.status(404)
-            .json({ message: "Falha deletar" });
+    if (!aluno) {
+        return notFoundError("Aluno não encontrado", response)
     }
+
+    response.status(204)
+        .send();
 }
-
-
 
 export default {
     cadastroAlunos,
