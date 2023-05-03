@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction, } from "express";
 import Aluno from "./module";
-import routerAluno from "./routes";
 import { transaction } from "objection";
 import notFoundError from "../../helper/not-found-error";
 
