@@ -4,6 +4,6 @@ import validacao from './validacao';
 
 const routerCursos = Router();
 
-routerCursos.post("/", );
+routerCursos.post("/",validacao.validacaoCadastroCursos, controller.cadastroCursos);
 
 export default routerCursos;
