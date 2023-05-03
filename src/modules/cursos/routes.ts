@@ -9,4 +9,8 @@ routerCursos.post("/",validacao.validacaoCadastroCursos, controller.cadastroCurs
 routerCursos.get("/", controller.listrarCursos);
 routerCursos.get("/:id", controller.listrarUmCurso);
 
+routerCursos.put("/:id", validacao.validacaoAlteracaoCurso, controller.alterarCurso)
+
+
+
 export default routerCursos;

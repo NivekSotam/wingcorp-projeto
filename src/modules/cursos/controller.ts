@@ -59,8 +59,36 @@ async function listrarUmCurso(request: Request, response: Response, next: NextFu
         .json(ListarUmCurso);
 };
 
+
+async function alterarCurso(request: Request, response: Response, next: NextFunction) {
+    const { id } = request.params
+    const { body } = request;
+
+    try {
+        const curso = await Curso.transaction(async transacting => {
+            const CursoExistente = await Curso.query()
+                .findById(id)
+
+            if (!CursoExistente) {
+                return notFoundError("Curso não encontrado", response)
+            }
+
+            return CursoExistente.$query(transacting)
+                .updateAndFetch(body)
+        });
+
+        response.status(200)
+            .json(curso)
+    } catch (error) {
+        response.status(404)
+            .json({ message: "Falha ao atualizar as informações" });
+        next(error);
+    }
+}
+
 export default {
     cadastroCursos,
     listrarCursos,
-    listrarUmCurso
+    listrarUmCurso,
+    alterarCurso
 }
