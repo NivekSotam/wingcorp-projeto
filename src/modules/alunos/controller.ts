@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction, } from "express";
 import Aluno from "./module";
-import { transaction } from "objection";
 import notFoundError from "../../helper/not-found-error";
 
 async function cadastroAlunos(request: Request, response: Response, next: NextFunction) {
