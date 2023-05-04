@@ -1,7 +1,7 @@
 import { NextFunction, Response, Request } from "express";
 import Joi from "joi";
 
-async function validacaoCadastroMatriculas(request: Request, response: Response, next: NextFunction) {
+async function validacaoMatriculas(request: Request, response: Response, next: NextFunction) {
     const { body } = request;
 
     const schema = Joi.object({
@@ -20,5 +20,5 @@ async function validacaoCadastroMatriculas(request: Request, response: Response,
 
 
 export default { 
-    validacaoCadastroMatriculas
+    validacaoMatriculas
 }
