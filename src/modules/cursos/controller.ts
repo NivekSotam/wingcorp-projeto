@@ -10,7 +10,7 @@ async function cadastroCursos(request: Request, response: Response, next: NextFu
         const cursoExistente = await Curso.query().findOne({
             curso: curso
         })
-        
+
         if (cursoExistente) {
             return response.status(400).json({
                 mensagem: 'O nome do curso deve ser unico'
@@ -23,7 +23,7 @@ async function cadastroCursos(request: Request, response: Response, next: NextFu
         });
 
         response.status(200)
-        .json(cursoInsert)
+            .json(cursoInsert)
     }
     catch (error) {
         response.status(400)
@@ -63,22 +63,33 @@ async function listarUmCurso(request: Request, response: Response, next: NextFun
 async function alterarCurso(request: Request, response: Response, next: NextFunction) {
     const { id } = request.params
     const { body } = request;
+    const { curso } = body
 
     try {
-        const curso = await Curso.transaction(async transacting => {
-            const CursoExistente = await Curso.query()
+        const cursoAteracao = await Curso.transaction(async transacting => {
+            const cursoExistente = await Curso.query()
                 .findById(id)
 
-            if (!CursoExistente) {
+            const cursoNomeExistente = await Curso.query().findOne({
+                curso: curso
+            })
+
+            if (cursoNomeExistente) {
+                return response.status(400).json({
+                    mensagem: 'O nome do curso deve ser unico'
+                });
+            };
+
+            if (!cursoExistente) {
                 return notFoundError("Curso não encontrado", response)
             }
 
-            return CursoExistente.$query(transacting)
+            return cursoExistente.$query(transacting)
                 .updateAndFetch(body)
         });
 
         response.status(200)
-            .json(curso)
+            .json(cursoAteracao)
     } catch (error) {
         response.status(404)
             .json({ message: "Falha ao atualizar as informações" });
