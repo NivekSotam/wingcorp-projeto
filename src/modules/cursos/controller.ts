@@ -45,18 +45,18 @@ async function listrarCursos(request: Request, response: Response, next: NextFun
     }
 };
 
-async function listrarUmCurso(request: Request, response: Response, next: NextFunction) {
+async function listarUmCurso(request: Request, response: Response, next: NextFunction) {
     const { id } = request.params
 
-    const ListarUmCurso = await Curso.query()
+    const listarUmCurso = await Curso.query()
         .findById(id)
 
-    if (!ListarUmCurso) {
+    if (!listarUmCurso) {
         return notFoundError("curso não encontrado", response);
     }
 
     response.status(200)
-        .json(ListarUmCurso);
+        .json(listarUmCurso);
 };
 
 
@@ -106,7 +106,7 @@ async function deletarCurso(request: Request, response: Response, next: NextFunc
 export default {
     cadastroCursos,
     listrarCursos,
-    listrarUmCurso,
+    listarUmCurso,
     alterarCurso,
     deletarCurso
 }

@@ -7,7 +7,7 @@ const routerCursos = Router();
 routerCursos.post("/",validacao.validacaoCadastroCursos, controller.cadastroCursos);
 
 routerCursos.get("/", controller.listrarCursos);
-routerCursos.get("/:id", controller.listrarUmCurso);
+routerCursos.get("/:id", controller.listarUmCurso);
 
 routerCursos.put("/:id", validacao.validacaoAlteracaoCurso, controller.alterarCurso);
 
