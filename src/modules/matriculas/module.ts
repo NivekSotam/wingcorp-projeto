@@ -24,8 +24,9 @@ class Matricula extends Model {
                 modelClass: Curso,
                 join: {
                     from: "matriculas.curso_id",
-                    to: "curso.id"
+                    to: "cursos.id",
                 }
+                
             },
             aluno: {
                 relation: Matricula.HasOneRelation,
