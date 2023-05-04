@@ -10,17 +10,18 @@ async function createMatricula(request: Request, response: Response, next: NextF
 
   try {
     const matriculaInsert = await Matricula.transaction(async transacting => {
-      const AlunoVerificacao = await Aluno.query()
+      const alunoVerificacao = await Aluno.query()
         .findById(aluno_id)
-      
-      const CursoVerificacao = await Curso.query()
+
+      const cursoVerificacao = await Curso.query()
         .findById(curso_id)
-      
-      if (!AlunoVerificacao) {
+
+
+      if (!alunoVerificacao) {
         return notFoundError("Aluno não encontrado", response)
       }
 
-      if(!CursoVerificacao) {
+      if (!cursoVerificacao) {
         return notFoundError("Curso não encontrado", response)
       }
 
@@ -37,7 +38,7 @@ async function createMatricula(request: Request, response: Response, next: NextF
   }
 }
 
-async function getMatricula(request: Request, response: Response, next: NextFunction) {
+async function listarMatricula(request: Request, response: Response, next: NextFunction) {
   try {
     const matriculas = await Matricula.query()
       .withGraphFetched({ curso: true, aluno: true });
@@ -51,6 +52,51 @@ async function getMatricula(request: Request, response: Response, next: NextFunc
   }
 }
 
+
+
+async function listarUmaMatricula(request: Request, response: Response, next: NextFunction) {
+  const { id } = request.params
+
+  try {
+    const listarUmaMatricula = await Matricula.query()
+      .findById(id)
+      .withGraphFetched({ curso: true, aluno: true });
+
+    if (!listarUmaMatricula) {
+      return notFoundError("Matricula não encontrado", response);
+    }
+
+    response.status(200)
+      .json(listarUmaMatricula);
+  } catch (error) {
+    response.status(400)
+      .json({ message: "Falha ao listar as matrículas" });
+    next(error);
+  }
+}
+
+async function deletarMatricula(request: Request, response: Response, next: NextFunction) {
+  const { id } = request.params
+
+  const deletarMatricula = await Matricula.transaction(async transacting => {
+      return Matricula.query(transacting)
+          .where('id', '=', id)
+          .delete()
+  });
+
+  if (!deletarMatricula) {
+      return notFoundError("Matricula não encontrado", response)
+  }
+
+  response.status(204)
+      .send();
+}
+
+
 export default {
-  createMatricula
+  createMatricula,
+  listarMatricula,
+  listarUmaMatricula,
+
+  deletarMatricula
 }
