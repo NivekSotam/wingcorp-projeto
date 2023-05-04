@@ -9,8 +9,8 @@ routerMatriculas.post("/", validacao.validacaoMatriculas, controller.createMatri
 routerMatriculas.get("/", controller.listarMatricula);
 routerMatriculas.get("/:id", controller.listarUmaMatricula); 
 
-routerMatriculas.put("/:id", validacao.validacaoMatriculas, )
+routerMatriculas.put("/:id", validacao.validacaoMatriculas, controller.alterarMatricula)
 
-routerMatriculas.delete("/:id", controller.deletarMatricula)
+routerMatriculas.delete("/:id", controller.deletarMatricula, )
 
 export default routerMatriculas;

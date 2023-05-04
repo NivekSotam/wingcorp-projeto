@@ -75,21 +75,63 @@ async function listarUmaMatricula(request: Request, response: Response, next: Ne
   }
 }
 
+async function alterarMatricula(request: Request, response: Response, next: NextFunction) {
+  const { id } = request.params
+  const { body } = request;
+  const { aluno_id, curso_id} = body
+
+  try {
+    const matriculaAlteracao = await Matricula.transaction(async transacting => {
+      const matriculaExistente = await Matricula.query()
+        .findById(id)
+
+      const alunoVerificacao = await Aluno.query()
+        .findById(aluno_id)
+
+      const cursoVerificacao = await Curso.query()
+        .findById(curso_id)
+
+      if (!alunoVerificacao) {
+        return notFoundError("Aluno não encontrado", response)
+      }
+
+      if (!cursoVerificacao) {
+        return notFoundError("Curso não encontrado", response)
+      }
+
+      if (!matriculaExistente) {
+        return notFoundError("Matricula não encontrado", response)
+      }
+
+      return matriculaExistente.$query(transacting)
+        .updateAndFetch(body)
+        .withGraphFetched({ curso: true, aluno: true });
+    });
+
+    response.status(200)
+      .json(matriculaAlteracao)
+  } catch (error) {
+    response.status(404)
+      .json({ message: "Falha ao atualizar as informações" });
+    next(error);
+  }
+}
+
 async function deletarMatricula(request: Request, response: Response, next: NextFunction) {
   const { id } = request.params
 
   const deletarMatricula = await Matricula.transaction(async transacting => {
-      return Matricula.query(transacting)
-          .where('id', '=', id)
-          .delete()
+    return Matricula.query(transacting)
+      .where('id', '=', id)
+      .delete()
   });
 
   if (!deletarMatricula) {
-      return notFoundError("Matricula não encontrado", response)
+    return notFoundError("Matricula não encontrado", response)
   }
 
   response.status(204)
-      .send();
+    .send();
 }
 
 
@@ -97,6 +139,6 @@ export default {
   createMatricula,
   listarMatricula,
   listarUmaMatricula,
-
+  alterarMatricula,
   deletarMatricula
 }
