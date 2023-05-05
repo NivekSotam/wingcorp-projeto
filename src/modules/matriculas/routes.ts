@@ -4,7 +4,7 @@ import controller from './controller';
 
 const routerMatriculas = Router();
 
-routerMatriculas.post("/", validacao.validacaoMatriculas, controller.createMatricula );
+routerMatriculas.post("/", validacao.validacaoMatriculas, controller.createMatricula, controller.atulizaVagaMatricula );
 
 routerMatriculas.get("/", controller.listarMatricula);
 routerMatriculas.get("/:id", controller.listarUmaMatricula); 

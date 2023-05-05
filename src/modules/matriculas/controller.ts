@@ -4,29 +4,60 @@ import Curso from "../cursos/module";
 import notFoundError from "../../helper/not-found-error";
 import Aluno from "../alunos/module";
 
+async function atulizaVagaMatricula(request: Request, response: Response, next: NextFunction) {
+  const { body } = request;
+  const { curso_id } = body;
+
+  const vagaCurso = await Curso.query()
+    .findById(curso_id);
+
+  if (!vagaCurso) {
+    return response.status(404).json({ message: "not found" });
+  }
+
+  const { vagas } = vagaCurso;
+
+  if (vagas === 0) {
+    return response.status(412).json({ message: "Não tem vagas disponiveis" });
+  }
+
+  const updateVagas = await Curso.transaction(async transacting => {
+    const quantidadeInscricaoPadrao = 1;
+    const novaQuantidadeVagas = vagas - quantidadeInscricaoPadrao;
+
+    const valuesToUpdate = {
+      ...vagaCurso,
+      vagas: novaQuantidadeVagas
+    }
+
+    return vagaCurso.$query(transacting)
+      .updateAndFetch(valuesToUpdate);
+  })
+
+}
+
 async function createMatricula(request: Request, response: Response, next: NextFunction) {
   const { body } = request;
-  const { curso_id, aluno_id } = body
+  const { curso_id, aluno_id } = body;
 
   try {
     const matriculaInsert = await Matricula.transaction(async transacting => {
       const alunoVerificacao = await Aluno.query()
-        .findById(aluno_id)
+        .findById(aluno_id);
 
       const cursoVerificacao = await Curso.query()
-        .findById(curso_id)
-
+        .findById(curso_id);
 
       if (!alunoVerificacao) {
-        return notFoundError("Aluno não encontrado", response)
+        return notFoundError("Aluno não encontrado", response);
       }
 
       if (!cursoVerificacao) {
-        return notFoundError("Curso não encontrado", response)
+        return notFoundError("Curso não encontrado", response);
       }
 
       return Matricula.query(transacting)
-        .insertAndFetch(body)
+        .insertAndFetch(body);
     });
 
     response.status(200)
@@ -36,6 +67,7 @@ async function createMatricula(request: Request, response: Response, next: NextF
       .json({ message: "Falha ao atualizar as informações" });
     next(error);
   }
+  next();
 }
 
 async function listarMatricula(request: Request, response: Response, next: NextFunction) {
@@ -51,8 +83,6 @@ async function listarMatricula(request: Request, response: Response, next: NextF
     next(error);
   }
 }
-
-
 
 async function listarUmaMatricula(request: Request, response: Response, next: NextFunction) {
   const { id } = request.params
@@ -78,7 +108,7 @@ async function listarUmaMatricula(request: Request, response: Response, next: Ne
 async function alterarMatricula(request: Request, response: Response, next: NextFunction) {
   const { id } = request.params
   const { body } = request;
-  const { aluno_id, curso_id} = body
+  const { aluno_id, curso_id } = body
 
   try {
     const matriculaAlteracao = await Matricula.transaction(async transacting => {
@@ -137,6 +167,7 @@ async function deletarMatricula(request: Request, response: Response, next: Next
 
 export default {
   createMatricula,
+  atulizaVagaMatricula,
   listarMatricula,
   listarUmaMatricula,
   alterarMatricula,
