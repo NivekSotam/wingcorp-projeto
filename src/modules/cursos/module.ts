@@ -1,6 +1,6 @@
 import { Model } from "objection";
 class Curso extends Model {
-
+    
     static get tableName() {
         return "cursos";
     }

@@ -7,9 +7,10 @@ async function cadastroCursos(request: Request, response: Response, next: NextFu
     const { curso } = body
 
     try {
-        const cursoExistente = await Curso.query().findOne({
-            curso: curso
-        })
+        const cursoExistente = await Curso.query()
+            .findOne({
+                curso: curso
+            });
 
         if (cursoExistente) {
             return response.status(400).json({
