@@ -11,6 +11,9 @@ export async function up(knex: Knex): Promise<void> {
             .references("id")
             .inTable("matriculas");
 
+        fields.integer("nota", 100)
+            .notNullable();
+
         fields.unique(["matricula_id"])
     })
 }

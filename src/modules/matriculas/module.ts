@@ -38,7 +38,6 @@ class Matricula extends Model {
             }  
         }
     }
-
 };
 
 
