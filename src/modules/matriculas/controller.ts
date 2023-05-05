@@ -33,7 +33,6 @@ async function atulizaVagaMatricula(request: Request, response: Response, next: 
     return vagaCurso.$query(transacting)
       .updateAndFetch(valuesToUpdate);
   })
-
 }
 
 async function createMatricula(request: Request, response: Response, next: NextFunction) {

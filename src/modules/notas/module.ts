@@ -1,10 +1,9 @@
 import { Model } from "objection";
 import Matricula from "../matriculas/module";
-
 class Notas extends Model {
 
     static get tableName() {
-        return "matriculas";
+        return "notas";
     }
 
     static get idColumn(){
@@ -20,7 +19,7 @@ class Notas extends Model {
     static get relationMappings() {
         return {
             matricula: {
-                relation: Matricula.HasOneRelation,
+                relation: Notas.HasOneRelation,
                 modelClass: Matricula,
                 join: {
                     from: "notas.matricula_id",
@@ -33,5 +32,4 @@ class Notas extends Model {
     }
 };
 
-
-export default Matricula
+export default Notas
