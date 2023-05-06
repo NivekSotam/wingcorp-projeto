@@ -17,6 +17,8 @@ class Aluno extends Model {
     
     email!: string;
 
+    senha!: string;
+
 };
 
 export default Aluno

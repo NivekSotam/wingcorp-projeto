@@ -8,6 +8,7 @@ async function validacaoAlunos(request: Request, response: Response, next: NextF
         nome: Joi.string().min(1).max(100).required(),
         cpf: Joi.string().length(11).required(),
         email: Joi.string().min(1).max(100).required(),
+        senha: Joi.string().min(1).max(255).required()
     });
 
     const resultado = schema.validate(body);

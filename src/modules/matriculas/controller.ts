@@ -12,7 +12,7 @@ async function atulizaVagaMatricula(request: Request, response: Response, next: 
     .findById(curso_id);
 
   if (!vagaCurso) {
-    return response.status(404).json({ message: "not found" });
+    return notFoundError("Curso não encontrado", response);
   }
 
   const { vagas } = vagaCurso;
@@ -63,7 +63,7 @@ async function createMatricula(request: Request, response: Response, next: NextF
       .json(matriculaInsert)
   } catch (error) {
     response.status(404)
-      .json({ message: "Falha ao atualizar as informações" });
+      .json({ message: "Falha ao Criar a Matricula" });
     next(error);
   }
   next();
