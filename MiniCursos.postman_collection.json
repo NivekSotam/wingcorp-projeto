@@ -1,0 +1,512 @@
+{
+	"info": {
+		"_postman_id": "291e67b7-f740-4e2e-8385-1d52089aa887",
+		"name": "MiniCursos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21470265"
+	},
+	"item": [
+		{
+			"name": "alunos",
+			"item": [
+				{
+					"name": "Criar aluno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"leticia Tads\",\r\n    \"cpf\": \"12848678917\",\r\n    \"email\": \"leticia@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/alunos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"alunos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos os alunos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/alunos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"alunos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pegar um aluno",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/alunos/29",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"alunos",
+								"29"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar um aluno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Mateu silva\",\r\n    \"cpf\": \"11111111114\",\r\n    \"email\": \"mateusTeste@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/alunos/29",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"alunos",
+								"29"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar aluno",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/alunos/29",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"alunos",
+								"29"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tokenTeste",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/alunos/token",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"alunos",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cursos",
+			"item": [
+				{
+					"name": "Criar curso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"curso\": \"Node\",\r\n    \"descricao\": \"Mini Curso de node\",\r\n    \"turno\": \"noite\",\r\n    \"vagas\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/cursos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pegar todos os cursos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/cursos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pegar um curso",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/cursos/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cursos",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar curso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"curso\": \"React\",\r\n        \"descricao\": \"DescricaoTop\",\r\n        \"turno\": \"noite\",\r\n        \"vagas\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/cursos/55",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cursos",
+								"55"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar curso",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/cursos/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cursos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "matriculas",
+			"item": [
+				{
+					"name": "Criar Matricula",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"curso_id\": 4,\r\n    \"aluno_id\": 31\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/matriculas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"matriculas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Matriculas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/matriculas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"matriculas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIstar uma Matricula",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/matriculas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"matriculas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar matricula",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/matriculas/6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"matriculas",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AlterarMatricula",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"curso_id\": 1,\r\n    \"aluno_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/matriculas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"matriculas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notas",
+			"item": [
+				{
+					"name": "Criar Notas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"matricula_id\": 5 ,\r\n    \"nota\": 87\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/notas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar notas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar uma nota",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alterar notas",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"matricula_id\": 5,\r\n\"nota\": 87\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/notas/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notas",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar nota",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
